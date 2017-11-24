@@ -4,7 +4,7 @@
   "description": "Manage location permission, settings and get position in react native",
   "author": "abidibo <abidibo@gmail.com>",
   "homepage": "https://github.com/abidibo/react-native-location-manager",
-  "keywords": ["react-native", "react-native-location-manager", location],
+  "keywords": ["react-native", "react-native-location-manager", "location"],
   "main": "LocationManager/index.js",
   "license": "MIT",
   "repository": {
