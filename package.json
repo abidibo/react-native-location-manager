@@ -1,0 +1,24 @@
+{
+  "name": "react-native-location-manager",
+  "version": "0.1.0-alpha",
+  "description": "Manage location permission, settings and get position in react native",
+  "author": "abidibo <abidibo@gmail.com>",
+  "homepage": "https://github.com/abidibo/react-native-location-manager",
+  "keywords": ["react-native", "react-native-location-manager", location],
+  "main": "LocationManager/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abidibo/react-native-location-manager.git"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react-native-material-dialog": "^0.5.4",
+    "react-native-permissions": "^1.0.1",
+    "react-native-settings": "^0.0.1-alpha5",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "reduxsauce": "0.4.1",
+    "seamless-immutable": "^7.0.1"
+  }
+}
