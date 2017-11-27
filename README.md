@@ -60,6 +60,7 @@ Please, refer to packages repo pages for further instructions:
 
 Add the provided reducer:
 
+```js
     /* ------------- Assemble The Reducers ------------- */
     import { reducer as locationManagerReducer } from 'react-native-location-manager/Redux'
 
@@ -68,9 +69,11 @@ Add the provided reducer:
       location: locationManagerReducer,
       // ...
     })
+```
 
 Inside a connected component
 
+```js
     import React, { Component } from 'react'
     import PropTypes from 'prop-types'
     import { connect } from 'react-redux' }
@@ -134,12 +137,14 @@ Inside a connected component
     )
 
     export default connect(mapStateToProps)(MyContainer)
+```
 
 
 ## Reducer
 
 The reducer provided:
 
+```js
     location: PropTypes.shape({
       permission: PropTypes.string, // one of authorized, denied, undetermined, restricted
       position: PropTypes.shape({
@@ -149,6 +154,7 @@ The reducer provided:
       }),
       stealthMode: PropTypes.bool // set to true when the user closes the dialog without going to location enable settings page
     })
+```
 
 The `stealthMode` variable is used in order to stop asking the user to enable location setting every time the
 component renders, if someone doesn't want to share its position, why should we annoying him?
