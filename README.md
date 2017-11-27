@@ -2,6 +2,9 @@
 
 A redux connected component to manage localization stuff: permission, settings and position state.
 
+[![NPM](https://nodei.co/npm/react-native-location-manager.png?compact=true)](https://nodei.co/npm/react-native-location-manager/)
+
+![Screenshot](screenshot.jpg)
 
 ## Requirements
 
@@ -57,6 +60,7 @@ Add the provided reducer:
 
     /* ------------- Assemble The Reducers ------------- */
     import { reducer as locationManagerReducer } from 'react-native-location-manager/Redux'
+
     export const reducers = combineReducers({
       // ...
       location: locationManagerReducer,
@@ -172,7 +176,7 @@ component renders, if someone doesn't want to share its position, why should we 
 | onSearchLowAccuracy        | Function | () => {}                                          | Callback called when searching with low accuracy |
 | onSuccessLowAccuracy       | Function | () => {}                                          | Callback called when low accuracy position is succesfully retrieved |
 
-The `Utils` mode also exports 2 useful functions:
+The `Utils` module also exports 2 useful functions:
 
     import { distance, getLocation } from 'react-native-location-manager/Utils'
 
