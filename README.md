@@ -223,6 +223,10 @@ The distance between 2 LatLng points
 - `onSearchLowAccuracy`: function called when requesting the low accuracy position
 - `onSuccessLowAccuracy`: function called when the low accuracy request is successful
 
+## Flowchart
+
+![Screenshot](react-native-location-manager-flowchart.jpg)
+
 ## Contribute
 
 Contributions are very much appreciated, please make sure your code is compliant with the following `eslintrc`:
