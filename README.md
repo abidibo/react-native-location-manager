@@ -32,6 +32,8 @@ Tested with android simulator and real android device (xperia z3c)
 - all texts are customizable
 - callbacks can be defined in order to inform the user about what is going on under the hood
 
+![Screenshot](react-native-location-manager-flowchart.jpg)
+
 ## Install
 
 Using npm
@@ -223,9 +225,6 @@ The distance between 2 LatLng points
 - `onSearchLowAccuracy`: function called when requesting the low accuracy position
 - `onSuccessLowAccuracy`: function called when the low accuracy request is successful
 
-## Flowchart
-
-![Screenshot](react-native-location-manager-flowchart.jpg)
 
 ## Contribute
 
