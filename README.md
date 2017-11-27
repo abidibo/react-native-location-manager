@@ -40,7 +40,7 @@ Using npm
 
     $ npm install --save react-native-location-manager
 
-Ore yarn
+Or yarn
 
     $ yarn add react-native-location-manager
 
