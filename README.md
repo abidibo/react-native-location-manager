@@ -3,7 +3,6 @@
 A redux connected component to manage localization stuff: permission, settings and position state.
 
 
-
 ## Requirements
 
 - react
@@ -15,26 +14,52 @@ A redux connected component to manage localization stuff: permission, settings a
 - seamless-immutable
 - react-native-material-dialog
 - react-native-settings
+- react-native-permissions
+
+Many of these packages come already when starting your project with [ignite](https://github.com/infinitered/ignite).
 
 ## Features
 
 Tested with android simulator and real android device (xperia z3c)
 
-- checks for location permission, prompts a dialog if undetermined
-- checks for location setting enabled, prompts a dialog if disabled
+- checks for location permission, prompts a dialog asking to authorize the app, if undetermined
+- checks for location setting enabled, prompts a dialog asking to enable location, if disabled
 - tries to get high accuracy position, with timeout configurable fallback on low accuracy (but high accuracy still running and updating later on if successful)
 - manages maxAge (position cache) internally (can't rely on maxAge option param of react-native location methods)
 - all texts are customizable
 - callbacks can be defined in order to inform the user about what is going on under the hood
+
+## Install
+
+Using npm
+
+    $ npm install --save react-native-location-manager
+
+Ore yarn
+
+    $ yarn add react-native-location-manager
+
+### Additional setup
+
+Some required packages need more setup actions:
+
+  $ react-native link
+
+Please, refer to packages repo pages for further instructions:
+
+- [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) (required by react-native-material-dialog)
+- [react-native-permissions](https://github.com/yonahforst/react-native-permissions)
+- [react-native-settings](https://github.com/rmrs/react-native-settings)
 
 ## Usage
 
 Add the provided reducer:
 
     /* ------------- Assemble The Reducers ------------- */
+    import { reducer as locationManagerReducer } from 'react-native-location-manager/Redux'
     export const reducers = combineReducers({
       // ...
-      location: require('/PATH/TO/LocationManagerContainer/Redux').reducer,
+      location: locationManagerReducer,
       // ...
     })
 
@@ -44,7 +69,7 @@ Inside a connected component
     import PropTypes from 'prop-types'
     import { connect } from 'react-redux' }
     import { View, Text } from 'react-native'
-    import LocationManager from 'PATH/TO/LocationManager'
+    import LocationManager from 'react-native-location-manager'
 
     class MyContainer extends Component () {
       static propTypes = {
@@ -81,7 +106,12 @@ Inside a connected component
     export default connect(mapStateToProps)(MyContainer)
 
 
-### Props
+## Full example
+
+@TODO
+
+
+## API
 
 | Prop                       | Type     |      Default                                      |  Description     |
 |----------------------------|----------|---------------------------------------------------|------------------|
