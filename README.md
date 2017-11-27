@@ -43,7 +43,7 @@ Ore yarn
 
 Some required packages need more setup actions:
 
-  $ react-native link
+    $ react-native link
 
 Please, refer to packages repo pages for further instructions:
 
@@ -69,6 +69,7 @@ Inside a connected component
     import PropTypes from 'prop-types'
     import { connect } from 'react-redux' }
     import { View, Text } from 'react-native'
+    import Toast from 'react-native-simple-toast'
     import LocationManager from 'react-native-location-manager'
 
     class MyContainer extends Component () {
@@ -90,7 +91,30 @@ Inside a connected component
         let myPositionText = position === null ? 'Position unknown' : `Lat: ${position.latitude}, Lng: ${position.longitude}`
         return (
           <View>
-            <LocationManager />
+            <LocationManager
+              highAccuracyTimeout={10000}
+              dialogTitle={'Can we access you position?'}
+              dialogAuthorizeText={'Authorize the app to use the location service?'}
+              dialogAuthorizeCancelLabel={'CANCEL'}
+              dialogSettingsText={'Please enable location service in order to make me happy'}
+              dialogSettingsOkLabel={'SETTINGS'}
+              dialogSettingsCancelLabel={'DON\'T BOTHER'}
+              deniedPermissionMessage={
+                <View style={{ backgroundColor: 'red', padding: 10 }}>
+                  <Text style={{ color: 'white' }}>
+                    In order to calculate the distance and trip details
+                    of each retailer, you must authorize the app to use
+                    the location service!
+                  </Text>
+                </View>
+              }
+              onSearchHighAccuracy={() => Toast.show('Searching position')}
+              onSuccessHighAccuracy={() => Toast.show('GPS position found')}
+              onSuccessLowAccuracy={() => Toast.show('Position found')}
+              onLocationError={() =>
+                Toast.show('Can\'t retrieve your current position')
+              }
+            />
             <Text>{myPositionText}</Text>
           </View>
         )
@@ -106,12 +130,27 @@ Inside a connected component
     export default connect(mapStateToProps)(MyContainer)
 
 
-## Full example
+## Reducer
 
-@TODO
+The reducer provided:
+
+    location: PropTypes.shape({
+      permission: PropTypes.string, // one of authorized, denied, undetermined, restricted
+      position: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        timestamp: PropTypes.number // when it was fetched?
+      }),
+      stealthMode: PropTypes.bool // set to true when the user closes the dialog without going to location enable settings page
+    })
+
+The `stealthMode` variable is used in order to stop asking the user to enable location setting every time the
+component renders, if someone doesn't want to share its position, why should we annoying him?
 
 
 ## API
+
+`LocationManager` props:
 
 | Prop                       | Type     |      Default                                      |  Description     |
 |----------------------------|----------|---------------------------------------------------|------------------|
@@ -132,3 +171,73 @@ Inside a connected component
 | onTimeoutHighAccuracy      | Function | () => {}                                          | Callback called when high accuracy request timeouts |
 | onSearchLowAccuracy        | Function | () => {}                                          | Callback called when searching with low accuracy |
 | onSuccessLowAccuracy       | Function | () => {}                                          | Callback called when low accuracy position is succesfully retrieved |
+
+The `Utils` mode also exports 2 useful functions:
+
+    import { distance, getLocation } from 'react-native-location-manager/Utils'
+
+### distance
+
+    distance (lat1, lon1, lat2, lon2)
+
+#### Params
+
+- `lat1`
+- `lon1`
+- `lat2`
+- `lon2`
+
+The latitude and longitude of the 2 points
+
+#### Returns
+
+The distance between 2 LatLng points
+
+### getLocation
+
+    getLocation (
+      onSuccess,
+      onError,
+      options,
+      // wanna display messages?
+      onSearchHighAccuracy = () => {},
+      onSuccessHighAccuracy = () => {},
+      onTimeoutHighAccuracy = () => {},
+      onSearchLowAccuracy = () => {},
+      onSuccessLowAccuracy = () => {}
+    )
+
+#### Params
+
+- `onSuccess(coords)`: cb called when the position is retrieved. It may be calles 2 times, the first with low accuracy position and later on with high accuracy position
+- `onError(error)`: cb called when the position cannot be retrieved
+- `options`:
+    - `options.timeout`: high accuracy request timeout (after this interval the low accuracy request is performed, but the previous high accuracy request continues!)
+- `onSearchHighAccuracy`: function called when requesting the high accuracy position
+- `onSuccessHighAccuracy`: function called when the high accuracy request is successful
+- `onTimeoutHighAccuracy`: function calles when the timeout interval is gone (so the low accuracy request is going to be performed)
+- `onSearchLowAccuracy`: function called when requesting the low accuracy position
+- `onSuccessLowAccuracy`: function called when the low accuracy request is successful
+
+## Contribute
+
+Contributions are very much appreciated, please make sure your code is compliant with the following `eslintrc`:
+
+
+    {
+      "parser"  : "babel-eslint",
+      "extends" : [
+        "standard",
+        "standard-react"
+      ],
+      "plugins" : [
+        "babel"
+      ],
+      "env"     : {
+        "node" : true
+      },
+      "rules": {
+        "semi" : [2, "never"],
+        "max-len": [2, 120, 2],
+      }
+    }
